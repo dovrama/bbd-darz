@@ -1,0 +1,87 @@
+<p class="mat-body-2" *ngIf="plants.length > 0"><b>Galimi augalai pagal pasirinktus kriterijus:</b> {{ namesAsString }}.</p>
+<div class="container" *ngIf="plants.length > 0">
+  <div class="square">
+    <p class="mat-body-2"><b>Daržo žemės tipas:</b> {{ soilList }}.</p>
+  </div>
+  <div class="square">
+    <p class="mat-body-2"><b>Daržo dydis:</b> {{ gardenSize }} kv. m.</p>
+  </div>
+</div>
+<div class="grid-container" [ngStyle]="{'grid-template-columns': colNum, 'grid-template-rows': rowNum}">
+  <div *ngFor="let i of wholeGardenSize(gardenSize); let a = index" class="grid-item">
+    <mat-select placeholder="Daržovė" [ngModel]="plants" (ngModelChange)="onPlantSelection(a, $event)">
+      <mat-option *ngFor="let plant of plants; let b = index" [value]="plant.name" [ngStyle]="{'color':setColor(a, plant.plantHeight, plant.name)}">
+        {{plant.name}}
+      </mat-option>
+    </mat-select>
+  </div>
+</div>
+<div class="container2" id="no-print" *ngIf="plantsForListing.length > 0">
+  <div class="square2">
+    <p class="mat-body-1">Jei tarp pasirinkimui galimų augalų matote augalą pažymėtą <span style='color: green'>žalia</span> spalva, tai reiškia, kad šioje vietoje yra rekomenduojama sodinti šį augalą, nes augalas yra suderinamas su šalimais esančiais augalais.</p>
+  </div>
+  <div class="square3">
+    <mat-divider [vertical]="true" style="height: 100px;"></mat-divider>
+  </div>
+  <div class="square2">
+    <p class="mat-body-1">Jei tarp pasirinkimui galimų augalų matote augalą pažymėtą <span style='color: orange'>oranžine</span> spalva, tai reiškia, kad šioje vietoje yra nerekomenduojama sodinti šį augalą, nes šalimais esantys augalai gali užstoti šviesą.</p>
+  </div>
+  <div class="square3">
+    <mat-divider [vertical]="true" style="height: 100px;"></mat-divider>
+  </div>
+  <div class="square2">
+    <p class="mat-body-1">Jei tarp pasirinkimui galimų augalų matote augalą pažymėtą <span style='color: red'>raudona</span> spalva, tai reiškia, kad šioje vietoje yra nerekomenduojama sodinti šį augalą, nes augalas yra nesuderinamas su šalimais esančiais augalais.</p>
+  </div>
+  <div class="square3">
+    <mat-divider [vertical]="true" style="height: 100px;"></mat-divider>
+  </div>
+  <div class="square2">
+    <p class="mat-body-1">Jei tarp pasirinkimui galimų augalų matote augalą pažymėtą juoda spalva, tai reiškia, kad šis augalas yra neutralus ir šalimais esantys augalai nedaro jokio poveikio.</p>
+  </div>
+</div>
+<p style="text-align: center;" *ngIf="plantsForListing.length > 0">Pasirinkti augalai sodui</p>
+<p style="text-align: center;" *ngIf="plantsForListing.length <= 0">Nesate pasirinkę jokių augalų</p>
+<mat-accordion multi="true" *ngIf="plantsForListing.length > 0">
+  <mat-expansion-panel *ngFor="let plant of plantsForListing">
+    <mat-expansion-panel-header>
+      {{ plant.name }}
+    </mat-expansion-panel-header>
+    <ul>
+      <li><b>Žemė, kurioje auga šis augalas: </b> {{ plant.soil }}</li>
+      <li><b>Reikalingas augalui sauletumas: </b> {{ plant.sunshine }}%</li>
+      <li><b>Reikalingas augalui drėgnumas: </b> {{ plant.moisture }}%</li>
+      <li><b>Reikalingas augalui vėjuotumas: </b>{{ plant.wind }}%</li>
+      <li><b>Augalui tinkamos trąšos: </b>{{ plant.fertilizer }}</li>
+      <li><b>Reikalingas augalui trąšų kiekis vienam tręšimui: </b>{{ plant.fertilizerAmount }} g.</li>
+      <li><b>Tręšimo periodiškumas: </b>{{ plant.fertilizerPeriod }} d.</li>
+      <li><b>Reikalingas augalui vandens kiekis vienam laistymui: </b>{{ plant.wateringAmount }} l.</li>
+      <li><b>Laistymo periodiškumas: </b>{{ plant.wateringPeriod }} d.</li>
+      <li><b>Reikalingas sėklų kiekis vienam kv. m.: </b>{{ plant.seed }} g.</li>
+      <li><b>Sėklų kaina vienam kv. m.: </b>{{ plant.price }} eur.</li>
+      <li><b>Augalo derlius iš vieno kv. m.: </b>{{ plant.yieldCrop }} kg.</li>
+      <li><b>Augalo spalva: </b>{{ plant.color }}</li>
+      <li><b>Augalo žydėjimo mėnuo: </b>{{ plant.blossomTime }}</li>
+      <li><b>Augalo žydėjimo trukmė: </b>{{ plant.blossomPeriod }} sav.</li>
+      <li><b>Augalo suderinamumas: </b>{{ plant.compatability }}</li>
+      <li><b>Augalo nesuderinamumas: </b>{{ plant.nonCompatability }}</li>
+      <li><b>Augalo sėjomaina: </b>{{ plant.cropRotation}}</li>
+      <li><b>Derliaus nuėmimo mėnuo: </b>{{ plant.harvestingTime }}</li>
+      <li><b>Sėklų sodinimo mėnuo: </b>{{ plant.seedingTime }}</li>
+      <li><b>Augalo aukštis: </b>{{ plant.plantHeight}} cm.</li>
+      <li><b>Persodinimo mėnuo: </b>{{ plant.transplant }}</li>
+      <li><b>Reikalingas tarpas tarp augalų: </b>{{ plant.spacing }} cm.</li>
+      <li><b>Augalo auginimo patarimai: </b>{{ plant.hints }}.</li>
+    </ul>
+  </mat-expansion-panel>
+</mat-accordion>
+<div class="container">
+  <div class="square">
+    <p class="mat-body-2" *ngIf="plantsForListing.length > 0"><b>Viso sodo sėklų kaina:</b> {{ totalPrice }} eur.</p>
+  </div>
+  <div class="square">
+    <p class="mat-body-2" *ngIf="plantsForListing.length > 0"><b>Daržo derliaus kiekis:</b> {{ totalYield }} kg.</p>
+  </div>
+</div>
+<button style="float:right;" id="no-print" mat-raised-button routerLink="/landing" color="primary" *ngIf="plants.length > 0">Į pradžią</button>
+<button style="float:right;" id="no-print" mat-raised-button class='printBtn' (click)="printPage()" color="accent" *ngIf="plantsForListing.length > 0">Spausdinti</button>
+<button style="float:left;" id="no-print" mat-raised-button routerLink="/list" *ngIf="plants.length > 0">Atgal</button>

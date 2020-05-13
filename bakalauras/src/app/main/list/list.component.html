@@ -1,0 +1,163 @@
+<mat-accordion>
+  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <b>Filtrai</b>
+      </mat-panel-title>
+      <mat-panel-description>
+        {{panelOpenState ? '' : 'Išskleiskite meniu ir išsifiltruokite augalus pagal norimus parametrus.'}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div>
+      <mat-form-field>
+        <mat-label>Vėjuotumas (%)</mat-label>
+        <mat-select multiple [(ngModel)]="selectedWind">
+          <mat-option *ngFor="let wind of windList" [value]="wind">{{wind}}%</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Trašų tipas</mat-label>
+        <mat-select multiple [(ngModel)]="selectedFertilizer">
+          <mat-option *ngFor="let fertilizer of fertilizerList" [value]="fertilizer">{{fertilizer}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Tręšimo periodiškumas (d)</mat-label>
+        <mat-select multiple [(ngModel)]="selectedFertilizerPeriod">
+          <mat-option *ngFor="let fertilizerPeriod of fertilizerPeriodList" [value]="fertilizerPeriod">{{fertilizerPeriod}} d.</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Trąšų kiekis kartui (g)</mat-label>
+        <mat-select multiple [(ngModel)]="selectedFertilizerAmount">
+          <mat-option *ngFor="let fertilizerAmount of fertilizerAmountList" [value]="fertilizerAmount">{{fertilizerAmount}} g.</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Vandens kiekis laistymui (l)</mat-label>
+        <mat-select multiple [(ngModel)]="selectedWateringAmount">
+          <mat-option *ngFor="let wateringAmount of wateringAmountList" [value]="wateringAmount">{{wateringAmount}} l.</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Laistymo periodiškumas (d)</mat-label>
+        <mat-select multiple [(ngModel)]="selectedWateringPeriod">
+          <mat-option *ngFor="let wateringPeriod of wateringPeriodList" [value]="wateringPeriod">{{wateringPeriod}} d.</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Sėklų kiekis kvadratui (g)</mat-label>
+        <mat-select multiple [(ngModel)]="selectedSeed">
+          <mat-option *ngFor="let seed of seedList" [value]="seed">{{seed}} g.</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Sėklų kaina kvadratui (eur)</mat-label>
+        <mat-select multiple [(ngModel)]="selectedPrice">
+          <mat-option *ngFor="let price of priceList" [value]="price">{{price}} eur.</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Derlius kvadratui (kg)</mat-label>
+        <mat-select multiple [(ngModel)]="selectedYieldCrop">
+          <mat-option *ngFor="let yieldCrop of yieldCropList" [value]="yieldCrop">{{yieldCrop}} kg.</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Spalva</mat-label>
+        <mat-select multiple [(ngModel)]="selectedColor">
+          <mat-option *ngFor="let color of colorList" [value]="color">{{color}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Žydėjimo laikas (mėn)</mat-label>
+        <mat-select multiple [(ngModel)]="selectedBlossomTime">
+          <mat-option *ngFor="let blossomTime of blossomTimeList" [value]="blossomTime">{{blossomTime}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Žydėjimo trukmė (sav)</mat-label>
+        <mat-select multiple [(ngModel)]="selectedBlossomPeriod">
+          <mat-option *ngFor="let blossomPeriod of blossomPeriodList" [value]="blossomPeriod">{{blossomPeriod}} sav.</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Derliaus nuėmimo laikas (mėn)</mat-label>
+        <mat-select multiple [(ngModel)]="selectedHarvestingTime">
+          <mat-option *ngFor="let harvestingTime of harvestingTimeList" [value]="harvestingTime">{{harvestingTime}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Sėklų sodinimo laikas (mėn)</mat-label>
+        <mat-select multiple [(ngModel)]="selectedSeedingTime">
+          <mat-option *ngFor="let seedingTime of seedingTimeList" [value]="seedingTime">{{seedingTime}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Augalų aukštis (cm)</mat-label>
+        <mat-select multiple [(ngModel)]="selectedPlantHeight">
+          <mat-option *ngFor="let plantHeight of plantHeightList" [value]="plantHeight">{{plantHeight}} cm.</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Persodinimo laikas (mėn)</mat-label>
+        <mat-select multiple [(ngModel)]="selectedTransplant">
+          <mat-option *ngFor="let transplant of transplantList" [value]="transplant">{{transplant}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Atstumas tarp augalų (cm)</mat-label>
+        <mat-select multiple [(ngModel)]="selectedSpacing">
+          <mat-option *ngFor="let spacing of spacingList" [value]="spacing">{{spacing}} cm.</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <mat-action-row>
+      <button mat-raised-button (click)=resetFilter()>Pašalinti pasirinkimus</button>
+      <button mat-raised-button color="primary" (click)=filterPlantData()>Filtruoti</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<p style="text-align: center;" *ngIf="plants.length > 0">Galimi augalai Jūsų sodui</p>
+<mat-accordion multi="true" *ngIf="plants.length > 0">
+  <mat-expansion-panel *ngFor="let plant of plants">
+    <mat-expansion-panel-header>
+      {{ plant.name }}
+    </mat-expansion-panel-header>
+    <ul>
+      <li><b>Žemė, kurioje auga šis augalas: </b> {{ plant.soil }}</li>
+      <li><b>Reikalingas augalui sauletumas: </b> {{ plant.sunshine }}%</li>
+      <li><b>Reikalingas augalui drėgnumas: </b> {{ plant.moisture }}%</li>
+      <li><b>Reikalingas augalui vėjuotumas: </b>{{ plant.wind }}%</li>
+      <li><b>Augalui tinkamos trąšos: </b>{{ plant.fertilizer }}</li>
+      <li><b>Reikalingas augalui trąšų kiekis vienam tręšimui: </b>{{ plant.fertilizerAmount }} g.</li>
+      <li><b>Tręšimo periodiškumas: </b>{{ plant.fertilizerPeriod }} d.</li>
+      <li><b>Reikalingas augalui vandens kiekis vienam laistymui: </b>{{ plant.wateringAmount }} l.</li>
+      <li><b>Laistymo periodiškumas: </b>{{ plant.wateringPeriod }} d.</li>
+      <li><b>Reikalingas sėklų kiekis vienam kv. m.: </b>{{ plant.seed }} g.</li>
+      <li><b>Sėklų kaina vienam kv. m.: </b>{{ plant.price }} eur.</li>
+      <li><b>Augalo derlius iš vieno kv. m.: </b>{{ plant.yieldCrop }} kg.</li>
+      <li><b>Augalo spalva: </b>{{ plant.color }}</li>
+      <li><b>Augalo žydėjimo mėnuo: </b>{{ plant.blossomTime }}</li>
+      <li><b>Augalo žydėjimo trukmė: </b>{{ plant.blossomPeriod }} sav.</li>
+      <li><b>Augalo suderinamumas: </b>{{ plant.compatability }}</li>
+      <li><b>Augalo nesuderinamumas: </b>{{ plant.nonCompatability }}</li>
+      <li><b>Augalo sėjomaina: </b>{{ plant.cropRotation}}</li>
+      <li><b>Derliaus nuėmimo mėnuo: </b>{{ plant.harvestingTime }}</li>
+      <li><b>Sėklų sodinimo mėnuo: </b>{{ plant.seedingTime }}</li>
+      <li><b>Augalo aukštis: </b>{{ plant.plantHeight}} cm.</li>
+      <li><b>Persodinimo mėnuo: </b>{{ plant.transplant }}</li>
+      <li><b>Reikalingas tarpas tarp augalų: </b>{{ plant.spacing }} cm.</li>
+      <li><b>Augalo auginimo patarimai: </b>{{ plant.hints }}.</li>
+    </ul>
+  </mat-expansion-panel>
+</mat-accordion>
+<p *ngIf="plants.length <= 0" style='text-align: center; color: red;'>Pagal pasirinktus filtrus nerasta jokių augalų. Prašome bandyti filtruoti dar kartą.</p>
+<button mat-raised-button routerLink="/landing" style="float: left;">Atgal</button>
+<button mat-raised-button routerLink="/grid" color="primary" style="float: right;" [disabled]="plants.length <= 0" (click)=sendPlantsData()>Pirmyn</button>

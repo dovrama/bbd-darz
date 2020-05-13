@@ -1,0 +1,23 @@
+<mat-toolbar color="primary">
+  <span>
+    <a routerLink="/landing">Daržas</a>
+  </span>
+  <span class="spacer"></span>
+  <ul>
+    <li *ngIf="userIsAuthenticated">
+      <a mat-button routerLink="/plantcreate" routerLinkActive="mat-accent" [routerLinkActiveOptions]="{ exact: true }">Pridėti augalą</a>
+    </li>
+    <li *ngIf="userIsAuthenticated">
+      <a mat-button routerLink="/plantlist" routerLinkActive="mat-accent">Augalų sąrašas</a>
+    </li>
+    <li *ngIf="userIsAuthenticated">
+      <a mat-button routerLink="/admincreateuser" routerLinkActive="mat-accent">Sukurti paskyrą</a>
+    </li>
+    <li>
+      <a mat-button routerLink="/" routerLinkActive="mat-accent" [routerLinkActiveOptions]="{ exact: true }">Pradžia</a>
+    </li>
+    <li *ngIf="userIsAuthenticated">
+      <a mat-button (click)="onLogout()">Atsijungti</a>
+    </li>
+  </ul>
+</mat-toolbar>

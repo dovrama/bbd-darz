@@ -1,0 +1,38 @@
+<mat-accordion multi="true" *ngIf="plants.length > 0">
+  <mat-expansion-panel *ngFor="let plant of plants">
+    <mat-expansion-panel-header>
+      {{ plant.name }}
+    </mat-expansion-panel-header>
+    <ul>
+      <li><b>Žemė, kurioje auga šis augalas: </b> {{ plant.soil }}</li>
+      <li><b>Reikalingas augalui sauletumas: </b> {{ plant.sunshine }}%</li>
+      <li><b>Reikalingas augalui drėgnumas: </b> {{ plant.moisture }}%</li>
+      <li><b>Reikalingas augalui vėjuotumas: </b>{{ plant.wind }}%</li>
+      <li><b>Augalui tinkamos trąšos: </b>{{ plant.fertilizer }}</li>
+      <li><b>Reikalingas augalui trąšų kiekis vienam tręšimui: </b>{{ plant.fertilizerAmount }} g.</li>
+      <li><b>Tręšimo periodiškumas: </b>{{ plant.fertilizerPeriod }} d.</li>
+      <li><b>Reikalingas augalui vandens kiekis vienam laistymui: </b>{{ plant.wateringAmount }} l.</li>
+      <li><b>Laistymo periodiškumas: </b>{{ plant.wateringPeriod }} d.</li>
+      <li><b>Reikalingas sėklų kiekis vienam kv. m.: </b>{{ plant.seed }} g.</li>
+      <li><b>Sėklų kaina vienam kv. m.: </b>{{ plant.price }} eur.</li>
+      <li><b>Augalo derlius iš vieno kv. m.: </b>{{ plant.yieldCrop }} kg.</li>
+      <li><b>Augalo spalva: </b>{{ plant.color }}</li>
+      <li><b>Augalo žydėjimo mėnuo: </b>{{ plant.blossomTime }}</li>
+      <li><b>Augalo žydėjimo trukmė: </b>{{ plant.blossomPeriod }} sav.</li>
+      <li><b>Augalo suderinamumas: </b>{{ plant.compatability }}</li>
+      <li><b>Augalo nesuderinamumas: </b>{{ plant.nonCompatability }}</li>
+      <li><b>Augalo sėjomaina: </b>{{ plant.cropRotation}}</li>
+      <li><b>Derliaus nuėmimo mėnuo: </b>{{ plant.harvestingTime }}</li>
+      <li><b>Sėklų sodinimo mėnuo: </b>{{ plant.seedingTime }}</li>
+      <li><b>Augalo aukštis: </b>{{ plant.plantHeight}} cm.</li>
+      <li><b>Persodinimo mėnuo: </b>{{ plant.transplant }}</li>
+      <li><b>Reikalingas tarpas tarp augalų: </b>{{ plant.spacing }} cm.</li>
+      <li><b>Augalo auginimo patarimai: </b>{{ plant.hints }}.</li>
+    </ul>
+    <mat-action-row>
+      <a mat-button color="primary" [routerLink]="['/plantcreate/', plant.id]">REDAGUOTI</a>
+      <button mat-button color="warn" (click)="toggleChecker()" *ngIf="checker">IŠTRINTI</button>
+      <button mat-button color="warn" (click)="onDelete(plant.id)" *ngIf="!checker">Ar tikrai?</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>

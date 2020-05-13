@@ -1,0 +1,75 @@
+<mat-vertical-stepper linear (selectionChange)="convertGardenSubData()">
+  <mat-step label="Pasirinkite daržo matmenis" [stepControl]="firstFormGroup">
+    <div>
+      <mat-form-field [formGroup]="firstFormGroup">
+        <mat-label>Daržo ilgis (m)</mat-label>
+        <input matInput required placeholder="10" type="number" [(ngModel)]="gardenLength" formControlName="firstCtrl">
+        <mat-error *ngIf="firstFormGroup.hasError">
+          Įveskite sveikąjį skaičių
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field [formGroup]="firstFormGroup">
+        <mat-label>Daržo plotis (m)</mat-label>
+        <input matInput required placeholder="2" type="number" [(ngModel)]="gardenWidth" formControlName="secondCtrl">
+        <mat-error *ngIf="firstFormGroup.hasError">
+          Įveskite sveikąjį skaičių
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <p *ngIf="gardenLength > 14" style="color: red;">Įvestas per didelis ilgis, maksimalus ilgis - 14 m.</p>
+      <p *ngIf="gardenWidth > 14" style="color: red;">Įvestas per didelis plotis, maksimalus plotis - 14 m.</p>
+      <button mat-raised-button matStepperNext color="primary" [disabled]="gardenLength > 14 || gardenWidth > 14">Kitas žingsnis</button>
+    </div>
+  </mat-step>
+  <mat-step label="Pasirinkite žemės tipą" [stepControl]="secondFormGroup">
+    <div>
+      <mat-form-field [formGroup]="secondFormGroup">
+        <mat-label>Žemės tipas</mat-label>
+        <mat-select [(ngModel)]="selectedSoil" required formControlName="firstCtrl">
+          <mat-option *ngFor="let soil of soilList" [value]="soil">{{soil}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="secondFormGroup.hasError">
+          Privalomas pasirinkimas
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field [formGroup]="secondFormGroup">
+        <mat-label>Žemės apšvietimas (%)</mat-label>
+        <mat-select multiple [(ngModel)]="selectedSunshine" required formControlName="secondCtrl">
+          <mat-option *ngFor="let sunshine of sunshineList" [value]="sunshine">{{sunshine}}%</mat-option>
+        </mat-select>
+        <mat-error *ngIf="secondFormGroup.hasError">
+          Privalomas bent vienas
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field [formGroup]="secondFormGroup">
+        <mat-label>Žemės drėgnumas (%)</mat-label>
+        <mat-select multiple [(ngModel)]="selectedMoisture" required formControlName="thirdCtrl">
+          <mat-option *ngFor="let moisture of moistureList" [value]="moisture">{{moisture}}%</mat-option>
+        </mat-select>
+        <mat-error *ngIf="secondFormGroup.hasError">
+          Privalomas bent vienas
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <button mat-raised-button matStepperPrevious>Atgal</button>
+      <button mat-raised-button matStepperNext color="primary" (click)=convertGardenSubData()>Kitas žingsnis</button>
+    </div>
+  </mat-step>
+  <mat-step label="Pirmyn!" (click)=convertGardenSubData()>
+    <p *ngIf="filteredPlants.length > 0">Galite pradėti planuoti daržą</p>
+    <p *ngIf="filteredPlants.length <= 0" style="color: red;">Pagal pasirinktus parametrus antrame žingsnyje nerasta jokių augalų.</p>
+    <p *ngIf="filteredPlants.length <= 0" style="color: red;">Prašome pakeisti pasirinkimus antrame žingsnyje ir bandyti dar kartą.</p>
+    <div>
+      <button mat-raised-button matStepperPrevious>Atgal</button>
+      <button mat-raised-button routerLink="/list" color="primary" [disabled]="filteredPlants.length <= 0" (click)=sendGardenData()>Pirmyn</button>
+    </div>
+  </mat-step>
+</mat-vertical-stepper>

@@ -1,0 +1,17 @@
+<mat-card>
+  <form (submit)="onSignup(signupForm)" #signupForm="ngForm">
+    <mat-form-field>
+      <input matInput name="email" ngModel type="email" placeholder="el. paštas" #emailInput="ngModel" required email>
+      <mat-error *ngIf="emailInput.invalid">Prašome įvesti teisingą el. paštą ar slaptažodį.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input type="password" name="password" ngModel matInput placeholder="slaptažodis" #passwordInput="ngModel" required>
+      <mat-error *ngIf="passwordInput.invalid">Prašome įvesti teisingą el. paštą ar slaptažodį.</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="accent" (click)="toggleChecker()" *ngIf="checker">Sukurti paskyrą</button>
+    <button mat-raised-button color="accent" type="submit" *ngIf="!checker">Ar tikrai?</button>
+  </form>
+  <div *ngIf="errorMessage">
+    <p style="color: red;">Sukurti paskyros nepavyko, bandykite dar kartą.</p>
+  </div>
+</mat-card>
